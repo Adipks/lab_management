@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Lab Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/statistics">Lab statistics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    <h1>Project Entries</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Lab No</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.project_id }}</td>
+                <td>{{ project.project_name }}</td>
+                <td>{{ project.lab_no }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Funded By Entries</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Fund ID</th>
+                <th>Company/Institute</th>
+                <th>Amount</th>
+                <th>Lab No</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fund in funded_by %}
+            <tr>
+                <td>{{ fund.fund_id }}</td>
+                <td>{{ fund.company_institute }}</td>
+                <td>{{ fund.amount }}</td>
+                <td>{{ fund.lab_no }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Course Entries</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Course No</th>
+                <th>Course Name</th>
+                <th>Professor ID</th>
+                <th>Teaching Assistant</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.course_no }}</td>
+                <td>{{ course.course_name }}</td>
+                <td>{{ course.professor_id }}</td>
+                <td>{{ course.teaching_assistant }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Lab Course Entries</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Lab No</th>
+                <th>Course No</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lab_course in lab_courses %}
+            <tr>
+                <td>{{ lab_course.lab_no }}</td>
+                <td>{{ lab_course.course_no }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Faculty Entries</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Faculty ID</th>
+                <th>Faculty Name</th>
+                <th>Faculty ID</th>
+                <th>Course No</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for faculty in faculties %}
+            <tr>
+                <td>{{ faculty.id }}</td>
+                <td>{{ faculty.faculty_name }}</td>
+                <td>{{ faculty.faculty_id }}</td>
+                <td>{{ faculty.course_no }}</td>
+                <td>{{ faculty.department }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

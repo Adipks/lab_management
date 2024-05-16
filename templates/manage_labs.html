@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Labs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            padding: 5px 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .aa {
+            display: block;
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+        .aa:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Lab Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/statistics">Lab statistics<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/addedit">Add/Edit information</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <h1>Manage Labs</h1>
+    <table>
+        <tr>
+            <th>Lab Number</th>
+            <th>Lab Type</th>
+            <th>Lab Assistant</th>
+            <th>Is Available</th>
+            <th>Actions</th>
+        </tr>
+        {% for lab in labs %}
+        <tr>
+            <td>{{ lab.lab_no }}</td>
+            <td>{{ lab.lab_type }}</td>
+            <td>{{ lab.lab_assistant }}</td>
+            <td>{{ lab.is_available }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('manage_labs') }}">
+                    <input type="hidden" name="lab_no" value="{{ lab.lab_no }}">
+                    <select name="new_status">
+                        <option value="Yes" {% if lab.is_available == 'Yes' %}selected{% endif %}>Yes</option>
+                        <option value="No" {% if lab.is_available == 'No' %}selected{% endif %}>No</option>
+                    </select>
+                    <button class="buttona" type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a class="aa" href="{{ url_for('index') }}">Back</a>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

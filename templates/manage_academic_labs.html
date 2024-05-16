@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Academic Labs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%; /* Adjust the width as needed */
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            padding: 5px 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Academic Labs</h1>
+        <table>
+            <tr>
+                <th>Lab Number</th>
+                <th>Lab Type</th>
+                <th>Lab Assistant</th>
+                <th>Is Available</th>
+                <th>Actions</th>
+            </tr>
+            {% for lab in labs %}
+            <tr>
+                <td>{{ lab.lab_no }}</td>
+                <td>{{ lab.lab_type }}</td>
+                <td>{{ lab.lab_assistant }}</td>
+                <td>{{ lab.is_available }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('manage_academic_labs') }}">
+                        <input type="hidden" name="lab_no" value="{{ lab.lab_no }}">
+                        <select name="new_status">
+                            <option value="Yes" {% if lab.is_available == 'Yes' %}selected{% endif %}>Yes</option>
+                            <option value="No" {% if lab.is_available == 'No' %}selected{% endif %}>No</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('index') }}">Back</a>
+    </div>
+</body>
+</html>

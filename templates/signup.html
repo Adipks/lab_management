@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            width: 30%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label, select, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        select, input[type="text"], input[type="password"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 97%;
+            background-position-y: 50%;
+        }
+        #studentFields, #researchStudentFields, #facultyFields {
+            display: none;
+            margin-top: 10px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 5px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        a:hover {
+            color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+    <script>
+        function showFields() {
+            var role = document.getElementById("role").value;
+            var studentFields = document.getElementById("studentFields");
+            var researchStudentFields = document.getElementById("researchStudentFields");
+            var facultyFields = document.getElementById("facultyFields");
+
+            studentFields.style.display = 'none';
+            researchStudentFields.style.display = 'none';
+            facultyFields.style.display = 'none';
+
+            if (role == 'student') {
+                studentFields.style.display = 'block';
+            } else if (role == 'research_student') {
+                researchStudentFields.style.display = 'block';
+            } else if (role == 'professor' || role == 'lab_assistant') {
+                facultyFields.style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Lab Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            
+          </ul>
+        </div>
+    </nav>
+    <h1>Signup</h1>
+    <form method="POST" action="{{ url_for('signup') }}">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <label for="role">Role:</label>
+        <select name="role" id="role" onchange="showFields()" required>
+            <option value="">Select a role</option>
+            <option value="student">Student</option>
+            <option value="research_student">Research Student</option>
+            <option value="professor">Professor</option>
+            <option value="lab_assistant">Lab Assistant</option>
+        </select>
+        
+        <div id="studentFields">
+            <label for="name">Name:</label>
+            <input type="text" name="name">
+            <label for="roll_no">Roll No:</label>
+            <input type="text" name="roll_no">
+            <label for="department">Department:</label>
+            <input type="text" name="department">
+            <label for="semester">Semester:</label>
+            <input type="number" name="semester">
+        </div>
+        
+        <div id="researchStudentFields">
+            <label for="name">Name:</label>
+            <input type="text" name="name">
+            <label for="roll_no">Roll No:</label>
+            <input type="text" name="roll_no">
+            <label for="department">Department:</label>
+            <input type="text" name="department">
+        </div>
+        
+        <div id="facultyFields">
+            <label for="faculty_name">Faculty Name:</label>
+            <input type="text" name="faculty_name">
+            <label for="faculty_id">Faculty ID:</label>
+            <input type="text" name="faculty_id">
+            <label for="course_no">Course No:</label>
+            <input type="text" name="course_no">
+            <label for="department">Department:</label>
+            <input type="text" name="department">
+        </div>
+
+        <button type="submit">Signup</button>
+    </form>
+    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+</body>
+</html>
